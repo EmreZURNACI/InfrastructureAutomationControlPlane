@@ -1,0 +1,25 @@
+ldap:
+  url: "ldap://10.4.60.40:389"
+  host: "10.4.60.40"
+  isSecure: false
+  adminUsername: "administrator@emrezlab.local"
+  adminPassword: "Genel123!"
+
+server:
+  appName: "EmreZURNACI - InfrastructureAutomationControlPlaneProxy"
+  header: "EmreZURNACI - InfrastructureAutomationControlPlaneProxy"
+  host: "0.0.0.0"
+  port: 9963
+  secretKey: "secretKey"
+  privatekey: "privatekey"
+  tracePort: 4321
+  proxySecret: "proxySecret"
+
+database:
+  host: "proxy-database"
+  port: 5432
+  username: "iacpproxy"
+  password: "fAj3LpbIX9d4TTxdCPEh"
+  database: "iacpproxy"
+  sslMode: "disable"
+  schema: "iacpproxy"
