@@ -24,27 +24,29 @@ func init() {
 
 func main() {
 
-	db, err := postgres.Connection()
+	db, err := postgres.Connect()
 	if err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
 
-	if err := db.PrepareDB(); err != nil {
+	if err := db.Prepare(); err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
 
-	ec2Client, err := client.ConnectEC2()
+	ec2Client, err := client.Connect()
 	if err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
+
 	tp, err := initTracer()
 	if err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
+
 	server.Start(server.Dependencies{
 		EC2Client: ec2Client,
 		DB:        db,
