@@ -4,13 +4,16 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
+	"time"
 
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/domain"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/pkg/config"
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func CreateAccessToken(signatureObject domain.SignatureObjects, claims domain.TokenClaims) (string, error) {
+func CreateAccessToken(claims domain.TokenClaims) (string, error) {
+
+	timestamp := time.Now().UTC().Format(time.RFC3339Nano)
 
 	claim := jwt.MapClaims{
 		"iss":           "System",
@@ -18,8 +21,8 @@ func CreateAccessToken(signatureObject domain.SignatureObjects, claims domain.To
 		"nick":          claims.NickName,
 		"username":      claims.DisplayName,
 		"groups":        claims.Groups,
-		"X-TIMESTAMP":   signatureObject.Timestamp,
-		"X-SIGNATURE":   buildSignature(signatureObject.Timestamp),
+		"X-TIMESTAMP":   timestamp,
+		"X-SIGNATURE":   buildSignature(timestamp),
 		"X-USERID":      claims.SID,
 		"X-PERMISSIONS": claims.Permissions,
 	}
