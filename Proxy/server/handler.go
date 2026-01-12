@@ -1,7 +1,9 @@
 package server
 
 import (
+	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/adaptor/ldap"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/infra/postgres"
+
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,5 +19,6 @@ type routesHandler struct {
 	App          *fiber.App
 }
 type Dependencies struct {
-	DB *postgres.DB
+	DB   *postgres.DB
+	Ldap *ldap.LdapConnection
 }
