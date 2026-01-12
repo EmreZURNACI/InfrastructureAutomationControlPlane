@@ -1,20 +1,20 @@
 package main
 
 import (
+	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/adaptor/ldap"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/infra/postgres"
-	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/ldap"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/pkg/log"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/server"
 )
 
 func main() {
 
-	db, err := postgres.Connection()
+	db, err := postgres.Connect()
 	if err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
-	if err := db.PrepareDB(); err != nil {
+	if err := db.Prepare(); err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
