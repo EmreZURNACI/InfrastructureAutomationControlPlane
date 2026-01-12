@@ -28,5 +28,4 @@ func main() {
 		DB:   db,
 		Ldap: ldap,
 	})
-
 }
