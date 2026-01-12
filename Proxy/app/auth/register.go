@@ -158,4 +158,4 @@ func ModifyUserRequest(username string) *ldap.ModifyRequest {
 * INFO: AD'de oluşturalan kullanıcı DISABLE(514) oluştur.
 * 		Bunu başka bir request içinde modify edip ENABLE(512) yapmak gerekir.
 * 		Set password ve set enable aynı requestte olmaz.
- */
+*/
