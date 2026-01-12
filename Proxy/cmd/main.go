@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/infra/postgres"
+	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/ldap"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/pkg/log"
 	"github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/server"
 )
@@ -17,9 +18,15 @@ func main() {
 		log.Logger.Error(err.Error())
 		return
 	}
+	ldap, err := ldap.Connect()
+	if err != nil {
+		log.Logger.Error(err.Error())
+		return
+	}
 
 	server.Start(server.Dependencies{
-		DB: db,
+		DB:   db,
+		Ldap: ldap,
 	})
 
 }
