@@ -1,6 +1,6 @@
 package postgres
 
-func (h *DB) PrepareDB() error {
+func (h *DB) Prepare() error {
 	if err := h.createExtension(); err != nil {
 		return err
 	}

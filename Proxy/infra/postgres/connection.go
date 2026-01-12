@@ -16,7 +16,7 @@ type DB struct {
 	db *gorm.DB
 }
 
-func Connection() (*DB, error) {
+func Connect() (*DB, error) {
 	var dsn string = fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 		config.AppConfig.DatabaseConfig.Host,
