@@ -1,0 +1,89 @@
+services:
+
+  server:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: "InfrastructureAutomationControlPlaneServer"
+    ports: 
+      - "2963:2963"
+    networks:
+      - infra-control-plane
+    depends_on:
+      server-database:
+        condition: service_healthy
+
+    
+  server-database:
+    image: postgres:15
+    container_name: "InfrastructureAutomationControlPlaneDatabase"
+    ports: 
+      - "22963:5432"
+    networks:
+      - infra-control-plane
+    environment:
+      - POSTGRES_USER=iacp
+      - POSTGRES_DB=iacp
+      - POSTGRES_PASSWORD=fAj3LpbIX9d4TTxdCPEh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iacp -d iacp"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+  metric:
+    image: prom/prometheus
+    container_name: "InfrastructureAutomationControlPlanePrometheus"
+    ports:  
+      - "9090:9090"
+    networks:
+      - infra-control-plane  
+    depends_on:
+      - "server"
+    volumes:  
+      - "./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml"
+    
+  dashboard:
+    image: grafana/grafana-oss
+    container_name: "InfrastructureAutomationControlPlaneGrafana"
+    ports: 
+      - "3000:3000" 
+    networks:
+      - infra-control-plane  
+    depends_on:
+      - "metric"
+    volumes:  
+      - "./deploy/grafana/provisioning/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus.yml"
+    
+  tracing:
+    image: jaegertracing/all-in-one:1.55
+    container_name: "InfrastructureAutomationControlPlaneTracing"
+    ports:
+      # Jaeger UI
+      - "16686:16686"
+      # OTLP
+      - "4317:4317"   # gRPC
+      - "4318:4318"   # HTTP
+      # Jaeger collectors
+      - "14250:14250"
+      - "14268:14268"
+      # Zipkin
+      - "9411:9411"
+      # Agent (UDP)
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - infra-control-plane
+    depends_on:
+    - "server"
+
+  
+
+networks:
+  InfrastructureAutomationControlPlane:
+    driver: bridge
+  infra-control-plane:
+    name: infra-control-plane
+    external: true
