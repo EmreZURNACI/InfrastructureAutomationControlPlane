@@ -18,6 +18,7 @@ type routesHandler struct {
 	Dependencies Dependencies
 	App          *fiber.App
 }
+
 type Dependencies struct {
 	EC2Client *client.Ec2Client
 	DB        *postgres.DB
