@@ -5,7 +5,9 @@ import "github.com/EmreZURNACI/InfrastructureAutomationControlPlaneProxy/domain"
 var permissions []string = []string{"vm.list", "vm.create", "vm.edit", "vm.terminate",
 	"vm.detail", "vm.start", "vm.stop", "vm.restart", "vm.connect",
 	"ebs.list", "ebs.detail", "ebs.edit", "ebs.create", "ebs.delete",
-	"ebs.attach", "ebs.detach", "ebs.snap.create", "ebs.snap.delete"}
+	"ebs.attach", "ebs.detach", "ebs.snap.create", "ebs.snap.delete",
+	"vpc.list", "subnet.list", "image.list", "key.list",
+}
 
 func (h *DB) FillRoles() {
 	roles := []string{"admin", "moderator", "user"}
@@ -35,7 +37,7 @@ func (h *DB) FillRolesPermissions() {
 			"vm.start", "vm.stop", "vm.restart", "vm.connect",
 
 			"ebs.list", "ebs.detail", "ebs.edit", "ebs.create",
-			"ebs.attach", "ebs.detach",
+			"ebs.attach", "ebs.detach", "vpc.list", "subnet.list", "image.list", "key.list",
 		},
 
 		"user": {
@@ -44,6 +46,7 @@ func (h *DB) FillRolesPermissions() {
 			"ebs.list",
 			"ebs.detail",
 			"vm.connect",
+			"vpc.list", "subnet.list", "image.list", "key.list",
 		},
 	}
 
