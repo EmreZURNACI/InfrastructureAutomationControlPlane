@@ -41,6 +41,9 @@ func Start(dep Dependencies) {
 	routes.StartAdmin()
 	routes.StartInstance()
 	routes.StartVolumes()
+	routes.StartNetworks()
+	routes.StartImages()
+	routes.StartKeys()
 
 	log.Logger.Info(fmt.Sprintf("HTTP server started in %s:%d", config.AppConfig.ServerConfig.Host, config.AppConfig.ServerConfig.Port))
 	if err := app.Listen(fmt.Sprintf("%s:%d", config.AppConfig.ServerConfig.Host, config.AppConfig.ServerConfig.Port)); err != nil {
