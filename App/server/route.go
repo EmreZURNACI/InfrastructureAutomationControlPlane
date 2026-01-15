@@ -38,7 +38,6 @@ func Start(dep Dependencies) {
 	routes := NewRoutesHandler(app, dep)
 	routes.StartHello()
 	routes.StartLiveness()
-	routes.StartAdmin()
 	routes.StartInstance()
 	routes.StartVolumes()
 	routes.StartNetworks()
