@@ -1,0 +1,30 @@
+ldap:
+  url: "ldap://10.4.60.40:389"
+  host: "10.4.60.40"
+  isSecure: false
+  adminUsername: "administrator@emrezlab.local"
+  adminPassword: "Genel123!"
+
+server:
+  appName: "EmreZURNACI - InfrastructureAutomationControlPlane"
+  header: "EmreZURNACI - InfrastructureAutomationControlPlane"
+  host: "0.0.0.0"
+  port: 2963
+  secretKey: "secretKey"
+  privatekey: "privatekey"
+  tracePort: 4320
+  proxySecret: "proxySecret"
+
+aws:
+  accessKey: ""
+  secretAccessKey: ""
+  region: ""
+
+database:
+  host: "server-database"
+  port: 5432
+  username: "iacp"
+  password: "fAj3LpbIX9d4TTxdCPEh"
+  database: "iacp"
+  sslMode: "disable"
+  schema: "iacp"
