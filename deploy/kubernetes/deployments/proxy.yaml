@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  namespace: prod
+  labels:
+    app: proxy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy #Serviceler trafiği burayla matchleşerek iletir.
+    spec:
+      containers:
+        - name: proxy
+          image: infra_proxy:v1
+          ports:
+            - containerPort: 9963

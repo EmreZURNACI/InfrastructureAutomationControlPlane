@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: prod
+  labels:
+    app: server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server #Serviceler trafiği burayla matchleşerek iletir.
+    spec:
+      containers:
+        - name: server
+          image: infra_server:v1
+          ports:
+            - containerPort: 2963
