@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-db
+  namespace: prod
+  labels:
+    app: proxy-db
+spec:
+  type: ClusterIP
+  selector:
+    app: proxy-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
