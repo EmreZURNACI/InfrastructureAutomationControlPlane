@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: proxy-db
+  namespace: prod
+  labels:
+    app: proxy-db
+spec:
+  serviceName: proxy-db
+  replicas: 3
+  selector:
+    matchLabels:
+      app: proxy-db
+  template:
+    metadata:
+      labels:
+        app: proxy-db
+    spec:
+      containers:
+        - name: proxy-db
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/15/main
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy
+                  key: POSTGRES_USER
+            - name: POSTGRES_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy
+                  key: POSTGRES_DATABASE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: proxy
+                  key: POSTGRES_PASSWORD
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        namespace: prod
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
