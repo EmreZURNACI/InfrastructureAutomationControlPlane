@@ -5,6 +5,6 @@ func (h *DB) Prepare() error {
 		return err
 	}
 
-	h.migrate()
+	//	h.migrate()
 	return nil
 }
