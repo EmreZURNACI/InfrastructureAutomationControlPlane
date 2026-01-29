@@ -21,7 +21,7 @@ aws:
   region: ""
 
 database:
-  host: "server-database"
+  host: "server-db"
   port: 5432
   username: "iacp"
   password: "fAj3LpbIX9d4TTxdCPEh"
